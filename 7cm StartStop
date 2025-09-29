@@ -1,0 +1,37 @@
+int trigPin=11;
+int echoPin=12;
+void setup() {
+  // put your setup code here, to run once:
+Serial.begin(9600);
+pinMode (trigPin,OUTPUT);
+pinMode (echoPin,INPUT);
+}
+
+
+void loop() {
+  float duration;
+  float distance;
+  // put your main code here, to run repeatedly:
+// Clears the trigPin
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+// Sets the trigPin on HIGH for 10 micro seconds
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+ 
+// Reads echoPin, returns the sound wave time in uS
+duration = pulseIn(echoPin, HIGH);
+// Calculating the distance
+distance = duration * 0.034 / 2;
+if (distance<=7){
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+  Serial.println("GO");
+  delay(500);
+} else {
+  Serial.println("STOP");
+}
+
+}
