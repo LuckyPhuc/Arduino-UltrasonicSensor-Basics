@@ -1,0 +1,67 @@
+int trigPin=11;
+int echoPin=12;
+  float duration;
+  float distance;
+void dictate () {
+
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+ 
+
+duration = pulseIn(echoPin, HIGH);
+
+distance = duration * 0.034 / 2;
+}
+  int boardLED=13;
+  byte motorSpeed=0;
+  const int mote = 7;
+
+
+void setup() {
+    dictate();
+Serial.begin(9600);
+pinMode (trigPin,OUTPUT);
+pinMode (echoPin,INPUT);
+  pinMode(mote,OUTPUT);
+
+
+  digitalWrite(mote,HIGH);
+  digitalWrite(mote, LOW);
+  delay(1000);
+}
+   
+void loop() {
+ Serial.println(digitalRead(mote));
+             digitalWrite(mote, LOW);
+
+Serial.println("Waiting for object");
+Serial.println(distance);
+    Serial.println("Motor off");
+          dictate();
+while (distance<=5){
+  dictate();
+  delay(10);
+  Serial.println("Detected Object");
+  Serial.println(distance);
+             digitalWrite(mote, HIGH);
+      Serial.println("Motors begin");
+            Serial.println(digitalRead(mote));
+    delay(2500);
+  if (distance >5){
+    Serial.println("Object Gone");
+ 
+           digitalWrite(mote, LOW);
+      Serial.println("Motors begin");
+            Serial.println(digitalRead(mote));
+    delay(2500); 
+  
+  } else {
+        Serial.println("false positives");
+  }
+}
+    
+ }
